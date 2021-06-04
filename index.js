@@ -16,7 +16,8 @@ const server = http
             pug.renderFile('./form.pug', {
               path: req.url,
               firstItem: '焼き肉',
-              secondItem: 'しゃぶしゃぶ'
+              secondItem: 'しゃぶしゃぶ',
+              thirdItem: '今回のアンケートには三択目はありません'
             })
           );
         } else if (req.url === '/enquetes/rice-bread') {
@@ -24,7 +25,17 @@ const server = http
             pug.renderFile('./form.pug', {
               path: req.url,
               firstItem: 'ごはん',
-              secondItem: 'パン'
+              secondItem: 'パン',
+              thirdItem: '今回のアンケートには三択目はありません'
+            })
+          );
+        } else if (req.url === '/enquetes/yorushika-three') {
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: '春泥棒',
+              secondItem: 'レプリカント',
+              thirdItem: '又三郎'
             })
           );
         }
