@@ -15,18 +15,23 @@ const server = http
           res.write(
             pug.renderFile('./form.pug', {
               path: req.url,
-              firstItem: '焼き肉',
+              firstItem: '焼肉',
               secondItem: 'しゃぶしゃぶ'
             })
           );
+
         } else if (req.url === '/enquetes/rice-bread') {
-          res.write(
-            pug.renderFile('./form.pug', {
-              path: req.url,
-              firstItem: 'ごはん',
-              secondItem: 'パン'
-            })
-          );
+          res.write(pug.renderFile('./form.pug' , {
+            path: req.url,
+            firstItem: 'ごはん',
+            secondItem: 'しゃぶしゃぶ'
+          }));
+        } else if (req.url === '/enquetes/sushi-pizza') {
+          res.write(pug.renderFile('./form.pug', {
+            path: req.url,
+            firstItem: '寿司',
+            secondItem: 'ピザ'
+            }));
         }
         res.end();
         break;
