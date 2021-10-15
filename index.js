@@ -27,6 +27,22 @@ const server = http
               secondItem: 'パン'
             })
           );
+        } else if (req.url === '/enquetes/sushi-pizza') {
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: '寿司',
+              secondItem: 'ピザ'
+            })
+          );
+        } else if (req.url === '/enquetes/gyoza-karaage') {
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: '餃子',
+              secondItem: '唐揚げ'
+            })
+          );
         }
         res.end();
         break;
