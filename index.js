@@ -1,6 +1,13 @@
 'use strict';
 const http = require('http');
 const pug = require('pug');
+// アンケートの Map オブジェクト
+const enquetes = new Map([
+  ['/enquetes/yaki-shabu', ['焼き肉', 'しゃぶしゃぶ']],
+  ['/enquetes/rice-bread', ['ごはん', 'パン']],
+  ['/enquetes/sushi-pizza', ['寿司', 'ピザ']],
+  ['/enquetes/wa-you-chu',['和食', '洋食', '中華']]
+]);
 const server = http
   .createServer((req, res) => {
     const now = new Date();
@@ -11,20 +18,11 @@ const server = http
 
     switch (req.method) {
       case 'GET':
-        if (req.url === '/enquetes/yaki-shabu') {
+        if ( enquetes.get(req.url) ) {     // Map の Key に URL があるとき
           res.write(
             pug.renderFile('./form.pug', {
               path: req.url,
-              firstItem: '焼き肉',
-              secondItem: 'しゃぶしゃぶ'
-            })
-          );
-        } else if (req.url === '/enquetes/rice-bread') {
-          res.write(
-            pug.renderFile('./form.pug', {
-              path: req.url,
-              firstItem: 'ごはん',
-              secondItem: 'パン'
+              items: enquetes.get(req.url) // 選択肢の配列をそのまま pug へ
             })
           );
         }
