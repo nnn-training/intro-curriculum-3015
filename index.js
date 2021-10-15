@@ -11,22 +11,33 @@ const server = http
 
     switch (req.method) {
       case 'GET':
-        if (req.url === '/enquetes/yaki-shabu') {
-          res.write(
-            pug.renderFile('./form.pug', {
+        switch(req.url){
+          case '/enquetes/yaki-shabu-suki':
+            res.write(pug.renderFile('./form.pug', {
               path: req.url,
-              firstItem: '焼き肉',
-              secondItem: 'しゃぶしゃぶ'
-            })
-          );
-        } else if (req.url === '/enquetes/rice-bread') {
-          res.write(
-            pug.renderFile('./form.pug', {
+              firstItem: '焼肉',
+              secondItem: 'しゃぶしゃぶ',
+              thirdItem: 'すき焼き',
+            }));
+            break;
+          case '/enquetes/rice-bread-pasta':
+            res.write(pug.renderFile('./form.pug', {
               path: req.url,
               firstItem: 'ごはん',
-              secondItem: 'パン'
-            })
-          );
+              secondItem: 'パン',
+              thirdItem: 'パスタ',
+            }));
+            break;
+            case '/enquetes/ramen-udon-soba':
+              res.write(pug.renderFile('./form.pug', {
+                path: req.url,
+                firstItem: 'ラーメン',
+                secondItem: 'うどん',
+                thirdItem: 'そば',
+              }));
+              break;
+          default:
+            break;
         }
         res.end();
         break;
