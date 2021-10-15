@@ -16,7 +16,8 @@ const server = http
             pug.renderFile('./form.pug', {
               path: req.url,
               firstItem: '焼き肉',
-              secondItem: 'しゃぶしゃぶ'
+              secondItem: 'しゃぶしゃぶ',
+              thirdItem: 'すき焼き'
             })
           );
         } else if (req.url === '/enquetes/rice-bread') {
@@ -24,10 +25,38 @@ const server = http
             pug.renderFile('./form.pug', {
               path: req.url,
               firstItem: 'ごはん',
-              secondItem: 'パン'
+              secondItem: 'パン',
+              thirdItem: '麺'
             })
           );
-        }
+        } else if (req.url === '/enquetes/sushi-pizza') {
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: '寿司',
+              secondItem: 'ピッツァ',
+              thirdItem: '釜めし'
+            })
+          );
+        } else if (req.url === '/enquetes/gameconsoles') {
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: 'PlayStation5',
+              secondItem: 'XboxSeriesX/S',
+              thirdItem: 'NintendoSwitch'
+            })
+          );
+        } else if (req.url === '/enquetes/nteachers') {
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: '小枝先生',
+              secondItem: '折原先生',
+              thirdItem: 'らべねこ先生'
+            })
+          );
+        } 
         res.end();
         break;
       case 'POST':
@@ -40,7 +69,7 @@ const server = http
             const qs = require('querystring');
             const answer = qs.parse(rawData);
             const body = answer['name'] + 'さんは' +
-              answer['favorite'] + 'に投票しました';
+              answer['favorite'] + 'に投票しました。';
             console.info('[' + now + '] ' + body);
             res.write('<!DOCTYPE html><html lang="ja"><body><h1>' +
               body + '</h1></body></html>');
