@@ -27,6 +27,14 @@ const server = http
               secondItem: 'パン'
             })
           );
+        } else if (req.url === '/enquetes/sushi-pizza') {
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: '寿司',
+              secondItem: 'ピザ'
+            })
+          );
         }
         res.end();
         break;
@@ -39,8 +47,10 @@ const server = http
           .on('end', () => {
             const qs = require('querystring');
             const answer = qs.parse(rawData);
-            const body = answer['name'] + 'さんは' +
-              answer['favorite'] + 'に投票しました';
+            const userName = answer['name'] || 'ゲスト'
+            // ↑ 名前入力欄が 空だったら ゲストさん を設定する
+            const body = userName + 'さんが' +
+              answer['favorite'] + 'を投票しました';
             console.info('[' + now + '] ' + body);
             res.write('<!DOCTYPE html><html lang="ja"><body><h1>' +
               body + '</h1></body></html>');
