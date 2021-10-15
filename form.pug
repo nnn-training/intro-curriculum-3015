@@ -4,7 +4,7 @@ html(lang="ja")
     meta(charset="UTF-8")
     title アンケート
   body
-    h1 どちらが食べたいですか？
+    h1 あなたの"Favorite!!"に投票しよう！
     form(method="post" action=path)
       span 名前: 
       input(type="text" name="name")
@@ -12,4 +12,7 @@ html(lang="ja")
       span #{firstItem} 
       input(type="radio" name="favorite" value=secondItem)
       span #{secondItem} 
+      input(type="radio" name="favorite" value=thirdItem)
+      span #{thirdItem} 
+
       button(type="submit") 投稿
