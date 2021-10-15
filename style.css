@@ -1,0 +1,33 @@
+body{
+  background-color: rgb(243, 198, 205);
+  text-align: center;
+  margin: 50px;
+}
+
+h1{
+  color: rgb(66, 39, 4);
+}
+
+input{
+  margin: 20px;
+}
+
+button{
+  font-size: 18px;
+  display: inline-block;
+  padding: 0.3em 0.5em 0.3em;
+  color: rgb(66, 39, 4);
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(
+    -45deg,
+    #ddeeff 25%,
+    #c6e6fb 25%,
+    #c6e6fb 50%,
+    #ddeeff 50%,
+    #ddeeff 75%,
+    #c6e6fb 75%,
+    #c6e6fb
+  );
+  background-size: 10px 10px;
+}
