@@ -27,6 +27,14 @@ const server = http
               secondItem: 'パン'
             })
           );
+        } else if (req.url === '/enquetes/matatabi-nekogusa') {
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: 'またたび',
+              secondItem: '猫草'
+            })
+          );
         }
         res.end();
         break;
