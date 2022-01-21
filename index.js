@@ -1,6 +1,21 @@
 'use strict';
 const http = require('http');
 const pug = require('pug');
+/**
+ * アンケートの表示アイテムを変更する
+ * @param {String} enURL アンケートURL
+ * @param {Object} res HTTPレスポンス
+ * @param {String} first アンケート内容1
+ * @param {String} second アンケート内容2
+ */
+function enquetesChange(enURL, res, first, second){  
+  res.write(pug.renderFile('./form.pug', {
+    path: enURL,
+    firstItem: first,
+    secondItem: second
+  }))  
+}
+
 const server = http
   .createServer((req, res) => {
     const now = new Date();
@@ -11,23 +26,22 @@ const server = http
 
     switch (req.method) {
       case 'GET':
-        if (req.url === '/enquetes/yaki-shabu') {
-          res.write(
-            pug.renderFile('./form.pug', {
-              path: req.url,
-              firstItem: '焼き肉',
-              secondItem: 'しゃぶしゃぶ'
-            })
-          );
-        } else if (req.url === '/enquetes/rice-bread') {
-          res.write(
-            pug.renderFile('./form.pug', {
-              path: req.url,
-              firstItem: 'ごはん',
-              secondItem: 'パン'
-            })
-          );
-        }
+        const yaki_shabu = '/enquetes/yaki-shabu';
+        const rice_bread = '/enquetes/rice-bread';
+        const sushi_pizza = '/enquetes/sushi-pizza';
+
+        switch(req.url){
+          case yaki_shabu:
+            enquetesChange(yaki_shabu, res, '焼肉', 'しゃぶしゃぶ');
+            break;
+          case rice_bread:
+            enquetesChange(rice_bread, res, 'ごはん', 'パン');
+            break;
+          case sushi_pizza:
+            enquetesChange(sushi_pizza, res, '寿司', 'ピザ');
+          default:
+            break;
+        }                 
         res.end();
         break;
       case 'POST':
