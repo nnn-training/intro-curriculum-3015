@@ -14,7 +14,7 @@ const server = http
         if (req.url === '/enquetes/yaki-shabu') {
           res.write(
             pug.renderFile('./form.pug', {
-              path: req.url,
+              path: req.url,//actionで設定したパスに対して情報を投稿するように設定
               firstItem: '焼き肉',
               secondItem: 'しゃぶしゃぶ'
             })
@@ -27,6 +27,16 @@ const server = http
               secondItem: 'パン'
             })
           );
+        } else if(req.url === '/enquetes/sushi-pizza'){
+          res.write(
+            pug.renderFile('./form.pug', {
+              path : req.url,
+              firstItem : 'やきそば',
+              secondItem : '寿司'
+            })
+          );
+        }else{
+          res.write('不明なURLが指定されました')
         }
         res.end();
         break;
