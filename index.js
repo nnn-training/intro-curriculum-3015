@@ -27,6 +27,14 @@ const server = http
               secondItem: 'パン'
             })
           );
+        } else if (req.url === '/enquetes/sushi-pizza') {
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: '寿司',
+              secondItem: 'ピザ'
+            })
+          );
         }
         res.end();
         break;
@@ -57,7 +65,7 @@ const server = http
   .on('clientError', e => {
     console.error('[' + new Date() + '] Client Error', e);
   });
-const port = 8000;
+const port = 8080;
 server.listen(port, () => {
   console.info('[' + new Date() + '] Listening on ' + port);
 });
