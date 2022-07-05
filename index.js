@@ -6,25 +6,33 @@ const server = http
     const now = new Date();
     console.info(`[${now}] Requested by ${req.socket.remoteAddress}`);
     res.writeHead(200, {
-      'Content-Type': 'text/html; charset=utf-8'
+      'Content-Type': 'text/html; charset=utf-8',
     });
 
     switch (req.method) {
       case 'GET':
-        if (req.url === '/enquetes/yaki-shabu') {
+        if (req.url === '/enqutes/yaki-shabu') {
           res.write(
             pug.renderFile('./form.pug', {
               path: req.url,
-              firstItem: '焼き肉',
-              secondItem: 'しゃぶしゃぶ'
+              firstItem: '焼肉',
+              secondItem: 'しゃぶしゃぶ',
             })
           );
-        } else if (req.url === '/enquetes/rice-bread') {
+        } else if (req.url === '/enqutes/rice-bread') {
           res.write(
             pug.renderFile('./form.pug', {
               path: req.url,
               firstItem: 'ごはん',
-              secondItem: 'パン'
+              secondItem: 'ぱん',
+            })
+          );
+        } else if (req.url === '/enqutes/sushi-pizza') {
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: 'すし',
+              secondItem: 'ピザ',
             })
           );
         }
@@ -33,14 +41,18 @@ const server = http
       case 'POST':
         let rawData = '';
         req
-          .on('data', chunk => {
+          .on('data', (chunk) => {
             rawData += chunk;
           })
           .on('end', () => {
             const answer = new URLSearchParams(rawData);
-            const body = `${answer.get('name')}さんは${answer.get('favorite')}に投票しました`;
+            const body = `${answer.get('name')}さんは${answer.get(
+              'favorite'
+            )}に投票しました`;
             console.info(`[${now}] ${body}`);
-            res.write(`<!DOCTYPE html><html lang="ja"><body><h1>${body}</h1></body></html>`);
+            res.write(
+              `<!DOCTYPE html><html lang="ja"><body><h1>${body}</h1></body></html>`
+            );
             res.end();
           });
         break;
@@ -48,10 +60,10 @@ const server = http
         break;
     }
   })
-  .on('error', e => {
+  .on('error', (e) => {
     console.error(`[${new Date()}] Server Error`, e);
   })
-  .on('clientError', e => {
+  .on('clientError', (e) => {
     console.error(`[${new Date()}] Client Error`, e);
   });
 const port = 8000;
