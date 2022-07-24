@@ -27,6 +27,14 @@ const server = http
               secondItem: 'パン'
             })
           );
+        } else if (req.url === '/enquetes/soba-udon') {
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: '蕎麦',
+              secondItem: 'うどん'
+            })
+          );
         }
         res.end();
         break;
