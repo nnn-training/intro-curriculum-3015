@@ -4,7 +4,7 @@ const pug = require('pug');
 const server = http
   .createServer((req, res) => {
     const now = new Date();
-    console.info('[' + now + '] Requested by ' + req.socket.remoteAddress);
+    console.info('[' + now + '] Requested by ' + req.socket.remoteAddress + req.method + req.url);
     res.writeHead(200, {
       'Content-Type': 'text/html; charset=utf-8'
     });
@@ -25,6 +25,14 @@ const server = http
               path: req.url,
               firstItem: 'ごはん',
               secondItem: 'パン'
+            })
+          );
+        } else if (req.url === '/enquetes/sushi-pizza') {
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: '寿司',
+              secondItem: 'ピザ'
             })
           );
         }
