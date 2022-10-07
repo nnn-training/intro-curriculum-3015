@@ -7,8 +7,8 @@ html(lang="ja")
     h1 どちらが食べたいですか？
     form(method="post" action=path)
       span 名前: 
-      input(type="text" name="name")
-      input(type="radio" name="favorite" value=firstItem)
+      input(type="text" name="name" value="匿名")
+      input(type="radio" name="favorite" value=firstItem checked)
       span #{firstItem} 
       input(type="radio" name="favorite" value=secondItem)
       span #{secondItem} 
