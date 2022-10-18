@@ -23,6 +23,12 @@ const server = http
             firstItem: 'ごはん',
             secondItem: 'パン'
           }));
+        } else if (req.url === '/enquetes/training') {
+          res.write(pug.renderFile('./form.pug', {
+            path: req.url,
+            firstItem: '筋トレ',
+            secondItem: 'ジョギング'
+          }));
         }
         res.end();
         break;
