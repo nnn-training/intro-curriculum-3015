@@ -15,6 +15,7 @@ const server = http
           res.write(
             pug.renderFile('./form.pug', {
               path: req.url,
+              question: 'どちらが食べたいですか？',
               firstItem: '焼き肉',
               secondItem: 'しゃぶしゃぶ'
             })
@@ -23,6 +24,7 @@ const server = http
           res.write(
             pug.renderFile('./form.pug', {
               path: req.url,
+              question: 'どちらが食べたいですか？',
               firstItem: 'ごはん',
               secondItem: 'パン'
             })
@@ -31,10 +33,25 @@ const server = http
           res.write(
             pug.renderFile('./form.pug', {
               path: req.url,
+              question: 'どちらが食べたいですか？',
               firstItem: '寿司',
               secondItem: 'ピッツァ'
             })
           );
+        } else if (req.url === '/enquetes/berger-onigiri') {
+          res.write(pug.renderFile('./form.pug', {
+            path: req.url,
+            question: 'どちらが食べたいですか？',
+            firstItem: 'ハンバーガー',
+            secondItem: 'おにぎり'
+          }));
+        } else if (req.url === '/enquetes/kawaii-teacher') {
+          res.write(pug.renderFile('./form.pug', {
+            path: req.url,
+            question: 'どちらがKAWAII？',
+            firstItem: '紅茶を飲む折原先生',
+            secondItem: 'お菓子を食べる折原先生'
+          }));
         }
         res.end();
         break;
