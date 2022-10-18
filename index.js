@@ -11,19 +11,52 @@ const server = http
 
     switch (req.method) {
       case 'GET':
-        if (req.url === '/enquetes/yaki-shabu') {
-          res.write(pug.renderFile('./form.pug', {
-            path: req.url,
-            firstItem: '焼き肉',
-            secondItem: 'しゃぶしゃぶ'
-          }));
-        } else if (req.url === '/enquetes/rice-bread') {
-          res.write(pug.renderFile('./form.pug', {
-            path: req.url,
-            firstItem: 'ごはん',
-            secondItem: 'パン'
-          }));
+        let firstItem;
+        let secondItem;
+        // req.urlのswitch
+        switch(req.url) {
+          case '/enquetes/yaki-shabu':
+            firstItem = '焼き肉';
+            secondItem = 'しゃぶしゃぶ';
+            break;
+          case '/enquetes/rice-bread':
+            firstItem = 'ごはん';
+            secondItem = 'パン';
+            break;
+          case '/enquetes/sushi-pizza':
+            firstItem = '寿司';
+            secondItem = 'ピザ';
+            break;
+          case '/enquetes/tsuna-kombu':
+            firstItem = 'ツナマヨおにぎり';
+            secondItem = '昆布おにぎり';
+            break;
+          case '/enquetes/cocoa-coffee':
+            firstItem = 'ココア';
+            secondItem = 'コーヒー';
+            break;
+          case '/enquetes/soba-udon':
+            firstItem = 'そば';
+            secondItem = 'うどん';
+            break;
+          case '/enquetes/tkg-natto':
+            firstItem = '卵かけごはん';
+            secondItem = '納豆ごはん';
+            break;
+          case '/enquetes/egg-daikon':
+            firstItem = 'おでんの卵';
+            secondItem = 'おでんの大根';
+            break;
+          
+          default:
+            break;
         }
+        // req.urlのswitch終わり
+        res.write(pug.renderFile('form.pug', {
+          path: req.url,
+          firstItem,
+          secondItem
+        }));
         res.end();
         break;
       case 'POST':
