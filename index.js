@@ -6,30 +6,42 @@ const server = http
     const now = new Date();
     console.info(`[${now}] Requested by ${req.socket.remoteAddress}`);
     res.writeHead(200, {
-      'Content-Type': 'text/html; charset=utf-8'
+      'Content-Type': 'text/html; charset=utf-8',
     });
 
     switch (req.method) {
       case 'GET':
         if (req.url === '/enquetes/yaki-tofu') {
-          res.write(pug.renderFile('./form.pug', {
-            path: req.url,
-            firstItem: '焼き肉',
-            secondItem: '湯豆腐'
-          }));
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: '焼き肉',
+              secondItem: '湯豆腐',
+            })
+          );
         } else if (req.url === '/enquetes/rice-bread') {
-          res.write(pug.renderFile('./form.pug', {
-            path: req.url,
-            firstItem: 'ごはん',
-            secondItem: 'パン'
-          }));
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: 'ごはん',
+              secondItem: 'パン',
+            })
+          );
+        } else if (req.url === '/enquetes/sushi-pizza') {
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: '寿司',
+              secondItem: 'ピザ',
+            })
+          );
         }
         res.end();
         break;
       case 'POST':
         let rawData = '';
         req
-          .on('data', chunk => {
+          .on('data', (chunk) => {
             rawData += chunk;
           })
           .on('end', () => {
@@ -44,10 +56,10 @@ const server = http
         break;
     }
   })
-  .on('error', e => {
+  .on('error', (e) => {
     console.error(`[${new Date()}] Server Error`, e);
   })
-  .on('clientError', e => {
+  .on('clientError', (e) => {
     console.error(`[${new Date()}] Client Error`, e);
   });
 const port = 8000;
