@@ -35,6 +35,10 @@ const server = http
               secondItem: 'ピザ'
             })
           );
+        } else if (req.url === '/' || '') {
+          res.write(pug.renderFile('./topPage.pug'));
+        } else if (req.url === '/enquetes') {
+          res.write(pug.renderFile('./enquetes.pug'));
         }
         res.end();
         break;
