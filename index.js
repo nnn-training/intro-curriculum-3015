@@ -1,4 +1,20 @@
 'use strict';
+
+const enquetes = {
+  'yaki-tofu': {
+    firstItem: '焼き肉',
+    secondItem: '湯豆腐'
+  },
+  'rice-bread': {
+    firstItem: 'ごはん',
+    secondItem: 'パン'
+  },
+  'sushi-pizza': {
+    firstItem: '寿司',
+    secondItem: 'ピザ'
+  }
+};
+
 const http = require('node:http');
 const pug = require('pug');
 const server = http
@@ -11,23 +27,15 @@ const server = http
 
     switch (req.method) {
       case 'GET':
-        if (req.url === '/enquetes/yaki-tofu') {
+        const request = req.url.split('/').slice(-1)[0];
+        const enquete = enquetes[request];
+        if (typeof enquete != 'undefined') {
           res.write(
-            pug.renderFile('./form.pug', {
-              path: req.url,
-              firstItem: '焼き肉',
-              secondItem: '湯豆腐'
-            })
+            pug.renderFile('./form.pug', Object.assign({path: req.url}, enquete))
           );
-        } else if (req.url === '/enquetes/rice-bread') {
-          res.write(
-            pug.renderFile('./form.pug', {
-              path: req.url,
-              firstItem: 'ごはん',
-              secondItem: 'パン'
-            })
-          );
-        }
+        } else {
+          console.info(`[${now}]無効なURL${request}`)
+        };
         res.end();
         break;
       case 'POST':
