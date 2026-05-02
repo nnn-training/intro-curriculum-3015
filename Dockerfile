@@ -12,3 +12,12 @@ ENV LANG=ja_JP.UTF-8
 ENV TZ=Asia/Tokyo
 
 WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+EXPOSE 8100
+
+CMD ["npm", "start"]

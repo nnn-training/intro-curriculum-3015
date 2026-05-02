@@ -1,62 +1,96 @@
-'use strict';
-const http = require('node:http');
-const pug = require('pug');
+"use strict";
+const http = require("node:http");
+const pug = require("pug");
+
+const surveys = {
+  "/enquetes/yaki-tofu": {
+    firstItem: "焼き肉",
+    secondItem: "湯豆腐",
+  },
+  "/enquetes/sushi-pizza": {
+    firstItem: "寿司",
+    secondItem: "ピザ",
+  },
+};
+
+function renderPage(template, locals = {}) {
+  return pug.renderFile(template, locals);
+}
+
 const server = http
   .createServer((req, res) => {
     const now = new Date();
     console.info(`[${now}] Requested by ${req.socket.remoteAddress}`);
-    res.writeHead(200, {
-      'Content-Type': 'text/html; charset=utf-8'
-    });
 
     switch (req.method) {
-      case 'GET':
-        if (req.url === '/enquetes/yaki-tofu') {
+      case "GET":
+        if (req.url === "/") {
+          res.writeHead(200, {
+            "Content-Type": "text/html; charset=utf-8",
+          });
+          res.write(renderPage("./home.pug"));
+        } else if (surveys[req.url]) {
+          res.writeHead(200, {
+            "Content-Type": "text/html; charset=utf-8",
+          });
           res.write(
-            pug.renderFile('./form.pug', {
+            renderPage("./form.pug", {
               path: req.url,
-              firstItem: '焼き肉',
-              secondItem: '湯豆腐'
-            })
+              ...surveys[req.url],
+            }),
           );
-        } else if (req.url === '/enquetes/rice-bread') {
-          res.write(
-            pug.renderFile('./form.pug', {
-              path: req.url,
-              firstItem: 'ごはん',
-              secondItem: 'パン'
-            })
-          );
+        } else {
+          res.writeHead(404, {
+            "Content-Type": "text/html; charset=utf-8",
+          });
+          res.write("<!DOCTYPE html><html lang=\"ja\"><body><h1>Not Found</h1></body></html>");
         }
         res.end();
         break;
-      case 'POST':
-        let rawData = '';
+      case "POST":
+        if (!surveys[req.url]) {
+          res.writeHead(404, {
+            "Content-Type": "text/html; charset=utf-8",
+          });
+          res.end("<!DOCTYPE html><html lang=\"ja\"><body><h1>Not Found</h1></body></html>");
+          break;
+        }
+
+        let rawData = "";
         req
-          .on('data', chunk => {
+          .on("data", (chunk) => {
             rawData += chunk;
           })
-          .on('end', () => {
+          .on("end", () => {
             const answer = new URLSearchParams(rawData);
-            const body = `${answer.get('name')}さんは${answer.get('favorite')}に投票しました`;
+            const body = `${answer.get("name")}さんは${answer.get("favorite")}に投票しました`;
             console.info(`[${now}] ${body}`);
+            res.writeHead(200, {
+              "Content-Type": "text/html; charset=utf-8",
+            });
             res.write(
-              `<!DOCTYPE html><html lang="ja"><body><h1>${body}</h1></body></html>`
+              `<!DOCTYPE html><html lang="ja"><body><h1>${body}</h1></body></html>`,
             );
             res.end();
           });
         break;
       default:
+        res.writeHead(405, {
+          "Content-Type": "text/html; charset=utf-8",
+        });
+        res.end(
+          "<!DOCTYPE html><html lang=\"ja\"><body><h1>Method Not Allowed</h1></body></html>",
+        );
         break;
     }
   })
-  .on('error', e => {
+  .on("error", (e) => {
     console.error(`[${new Date()}] Server Error`, e);
   })
-  .on('clientError', e => {
+  .on("clientError", (e) => {
     console.error(`[${new Date()}] Client Error`, e);
   });
-const port = 8000;
+const port = Number(process.env.PORT) || 8100;
 server.listen(port, () => {
   console.info(`[${new Date()}] Listening on ${port}`);
 });
