@@ -3,6 +3,6 @@ services:
     build: .
     tty: true
     ports:
-      - 8000:8000
+      - 8100:8100
     volumes:
       - .:/app
