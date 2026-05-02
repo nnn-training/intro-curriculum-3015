@@ -7,9 +7,9 @@ const surveys = {
     firstItem: "焼き肉",
     secondItem: "湯豆腐",
   },
-  "/enquetes/rice-bread": {
-    firstItem: "ごはん",
-    secondItem: "パン",
+  "/enquetes/sushi-pizza": {
+    firstItem: "寿司",
+    secondItem: "ピザ",
   },
 };
 
