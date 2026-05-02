@@ -6,3 +6,4 @@ services:
       - 8100:8100
     volumes:
       - .:/app
+      - /app/node_modules
