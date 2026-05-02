@@ -27,6 +27,14 @@ const server = http
               secondItem: 'パン'
             })
           );
+        } else if (req.url === '/enquetes/soba-ramen') {
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: 'そば',
+              secondItem: 'ラーメン'
+            })
+          );
         }
         res.end();
         break;
