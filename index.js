@@ -27,6 +27,14 @@ const server = http
               secondItem: 'パン'
             })
           );
+        }else{req.url === '/enquetes/cake-parfait'
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: 'ケーキ',
+              secondItem: 'パフェ'
+            })
+          );
         }
         res.end();
         break;
