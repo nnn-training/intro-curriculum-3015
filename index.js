@@ -19,7 +19,8 @@ const server = http
               secondItem: '湯豆腐'
             })
           );
-        } else if (req.url === '/enquetes/rice-bread') {
+        }
+        else if (req.url === '/enquetes/rice-bread') {
           res.write(
             pug.renderFile('./form.pug', {
               path: req.url,
@@ -28,8 +29,18 @@ const server = http
             })
           );
         }
-        res.end();
-        break;
+        // 寿司かピザかを選択するアンケートを追加
+        else if (req.url === '/enquetes/sushi-pizza') {
+          res.write(
+            pug.renderFile('./form.pug', {
+              path: req.url,
+              firstItem: '寿司',
+              secondItem: 'ピザ'
+            })
+          );
+        }
+          res.end();
+          break;
       case 'POST':
         let rawData = '';
         req
