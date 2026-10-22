@@ -16,7 +16,8 @@ const server = http
             pug.renderFile('./form.pug', {
               path: req.url,
               firstItem: '焼き肉',
-              secondItem: '湯豆腐'
+              secondItem: '湯豆腐',
+              thirdItem: '闇鍋'
             })
           );
         } else if (req.url === '/enquetes/rice-bread') {
@@ -24,9 +25,19 @@ const server = http
             pug.renderFile('./form.pug', {
               path: req.url,
               firstItem: 'ごはん',
-              secondItem: 'パン'
+              secondItem: 'パン',
+              thirdItem: 'うどん'
             })
           );
+        } else if (req.url === '/enquetes/sushi-pizza'){
+          res.write(
+            pug.renderFile('./form.pug',{
+              path: req.url,
+              firstItem: '寿司',
+              secondItem: 'ピザ',
+              thirdItem: 'バナナ'
+            })
+          )
         }
         res.end();
         break;
