@@ -11,12 +11,12 @@ const server = http
 
     switch (req.method) {
       case 'GET':
-        if (req.url === '/enquetes/yaki-tofu') {
+        if (req.url === '/enquetes/sushi-pizza') {
           res.write(
             pug.renderFile('./form.pug', {
               path: req.url,
-              firstItem: '焼き肉',
-              secondItem: '湯豆腐'
+              firstItem: '寿司',
+              secondItem: 'ピザ'
             })
           );
         } else if (req.url === '/enquetes/rice-bread') {
