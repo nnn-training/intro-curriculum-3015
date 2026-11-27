@@ -34,7 +34,7 @@ const server = http
               firstItem: '寿司',
               secondItem: 'ピザ'
             })
-            );
+          );
         }
         res.end();
         break;
